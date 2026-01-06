@@ -1,9 +1,9 @@
-import { useContext, useEffect } from "react";
-import { AuthContext } from "../context/AuthContext";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const Dashboard = () => {
-  const { user, logout } = useContext(AuthContext);
+  const { user, logout } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -12,10 +12,12 @@ const Dashboard = () => {
     }
   }, [user, navigate]);
 
+  if (!user) return null;
+
   return (
-    <div>
-      <h1>Dashboard</h1>
-      <p>Welcome {user?.email}</p>
+    <div style={{ padding: 20 }}>
+      <h2>Dashboard</h2>
+      <p>Welcome {user.email}</p>
       <button onClick={logout}>Logout</button>
     </div>
   );
