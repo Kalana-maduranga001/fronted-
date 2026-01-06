@@ -10,12 +10,15 @@ const Login = () => {
 
   const submitHandler = async (e: React.FormEvent) => {
     e.preventDefault();
+     
     try {
       await login(email, password);
       alert("Login Successful");
+      console.log(email, password);
       navigate("/dashboard");
-    } catch {
-      alert("Invalid credentials");
+    } catch (err) {
+        console.error(err);
+        alert("Invalid credentials");
     }
   };
 

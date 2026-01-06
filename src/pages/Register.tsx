@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import API from "../api/axios";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -11,14 +12,16 @@ const Register = () => {
     e.preventDefault();
 
     try {
-      // TODO: Replace with your actual API call
-      // await API.post("/auth/register", { name, email, password });
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
+      await API.post("/auth/register", {
+        name,
+        email,
+        password,
+      });
+
       alert("Registration successful. Please login.");
       navigate("/login");
-    } catch (error) {
-      alert("Registration failed");
+    } catch (error: any) {
+      alert(error.response?.data?.message || "Registration failed");
     }
   };
 
