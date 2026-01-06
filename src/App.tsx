@@ -1,24 +1,19 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
+import { AuthProvider } from "./context/AuthContext";
 
-import { useState , useEffect } from "react";
-import "./App.css"
-
-function App(){
-  const [message, setMessage] = useState<string>("");
-
-  useEffect(() => {
-    fetch("http://localhost:5000")
-    .then(response => response.text())
-    .then(data => setMessage(data))
-    .catch(error => console.error("Failed to connect Server :", error));
-  } , []);
-
+function App() {
   return (
-    <div style={{ padding: 20 }}>
-      <h1>React Frontend (TypeScript)</h1>
-      <p>Backend says: {message}</p>
-    </div>
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
   );
-
 }
 
 export default App;
